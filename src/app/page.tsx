@@ -1,95 +1,49 @@
-import Image from "next/image";
 import styles from "./page.module.css";
+import { fetchPostsFromKuroco } from "./lib/kuroco.server";
+import { PostList, KurocoPost } from "@/app/components/PostList";
 
-export default function Home() {
+// ISR 再生成間隔 (必要に応じ調整)
+export const revalidate = 60;
+
+interface KurocoApiResponse {
+  list?: KurocoPost[];
+  items?: KurocoPost[];
+  error?: boolean;
+  [k: string]: unknown;
+}
+
+export default async function Home() {
+  let data: KurocoApiResponse;
+  try {
+    data = await fetchPostsFromKuroco();
+  } catch (e) {
+    console.error("Failed to fetch posts from Kuroco:", e);
+    data = { error: true };
+  }
+
+  const posts: KurocoPost[] =
+    (Array.isArray(data?.list)
+      ? (data.list as KurocoPost[])
+      : Array.isArray(data?.items)
+        ? (data.items as KurocoPost[])
+        : []);
+
   return (
     <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+      <main className={styles.main} style={{ width: "100%", maxWidth: 1200 }}>
+        <h1 style={{ marginTop: 24 }}>田中の犬に関するブログ</h1>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
+        {data?.error && (
+          <p style={{ color: "red" }}>
+            データ取得に失敗しました。環境変数 / API キー / エンドポイントを確認してください。
+          </p>
+        )}
+
+        {!data?.error && (
+          <PostList posts={posts} loading={false} />
+        )}
+
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
