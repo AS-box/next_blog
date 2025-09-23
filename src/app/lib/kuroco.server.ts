@@ -25,3 +25,9 @@ export async function fetchPostFromKuroco(id:number) {
   const res = await kurocoServerClient.get(`/rcms-api/3/article/${id}`); // 実パスに合わせて変更
   return res.data;
 }
+
+export async function fetchCategoryFromKuroco() {
+  const res = await kurocoServerClient.get('/rcms-api/3/category');
+  console.log('category response:', res.data); // ←await後の値を出力
+  return res.data;
+}

@@ -80,6 +80,7 @@ const PostDetailPage: React.FC<PostDetailPageParams> = async ({ params }) => {
             __html: sanitizedBody || "<p>本文はありません</p>",
           }}
         />
+
       </main>
     </div>
   );

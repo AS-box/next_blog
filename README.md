@@ -37,32 +37,29 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## 計画
 
-| 日数   | 内容                                                                 |
-|--------|---------------------------------------------------------------------|
-| 1日目  | Next.js＋microCMS環境セットアップ<br>コンテンツモデル設計（記事タイトル、本文、公開日など） |
-| 2日目  | microCMSに記事データ登録（仮データ作成）                              |
-| 3日目  | 記事一覧ページの作成（SSG利用）                                      |
-| 4日目  | 記事詳細ページの作成                                                |
-| 5日目  | SEO設定、簡単なスタイリング、パフォーマンスチェック、最終調整         |
+
+1 Next.js＋microCMS環境セットアップ<br>コンテンツモデル設計（記事タイトル、本文、公開日など） 
+2 microCMSに記事データ登録（仮データ作成）                              
+3 記事一覧ページの作成（SSG利用）                                      
+4 記事詳細ページの作成                                                
+5 簡単なスタイリング、パフォーマンスチェック、最終調整         
 
 ## このスコープで得られるスキル
 
 Next.jsの静的生成（SSG）と動的ルーティング
-microCMSのAPIを使ったコンテンツ管理とデータ取得
-コンポーネント設計とページ設計
-基本的なSEO設定（metaタグ設定など）
-サイトのパフォーマンス最適化
+microCMS(Kuroco)のAPIを使ったコンテンツ管理とデータ取得
+Next.jsにおけるコンポーネント設計とページ設計
+Cline、Github copilotを使ったAIによるコンテンツ制作経験
 
 ## 基本アーキテクチャ（推奨）
 
 フロント：Next.js（TypeScript）。App Router。Ant。
 CMS：Kuroco
-検索（オプション）：Algolia（商用で信頼性高い）または MeiliSearch（OSS/安価）。
 ホスティング：Vercel（Next最適）、代替：Netlify
-CI/CD：GitHub Actions → プレビュー・自動ビルド・自動デプロイ
 
 ## ディレクトリ構成
 
+```
 app/
 ├─ layout.tsx           // ルートレイアウト（共通ヘッダ/フッタなど）
 ├─ page.tsx             // / のページ（トップ）
@@ -91,3 +88,4 @@ styles/                 // グローバルCSS / Tailwind 等
 .env.example            // 環境変数テンプレ（コミット可）
 .next/                  // ビルド出力（gitignore）
 package.json
+```
