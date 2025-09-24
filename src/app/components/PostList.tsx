@@ -57,7 +57,6 @@ export const PostList: React.FC<PostCardsProps> = ({ posts, loading }) => {
       return list.some((ct) => selectedContentTypesNum.includes(ct));
     });
   }, [posts, selectedContentTypes]);
-  console.log('filteredPosts:', filteredPosts, 'selectedContentTypes:', selectedContentTypes);
 
   if (loading) {
     return (
