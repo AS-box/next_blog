@@ -37,25 +37,28 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## 計画
 
-
+```
 1 Next.js＋microCMS環境セットアップ<br>コンテンツモデル設計（記事タイトル、本文、公開日など） 
 2 microCMSに記事データ登録（仮データ作成）                              
 3 記事一覧ページの作成（SSG利用）                                      
 4 記事詳細ページの作成                                                
-5 簡単なスタイリング、パフォーマンスチェック、最終調整         
+5 簡単なスタイリング、パフォーマンスチェック、最終調整
+```        
 
 ## このスコープで得られるスキル
-
+```
 Next.jsの静的生成（SSG）と動的ルーティング
 microCMS(Kuroco)のAPIを使ったコンテンツ管理とデータ取得
 Next.jsにおけるコンポーネント設計とページ設計
 Cline、Github copilotを使ったAIによるコンテンツ制作経験
+```
 
 ## 基本アーキテクチャ（推奨）
-
+```
 フロント：Next.js（TypeScript）。App Router。Ant。
 CMS：Kuroco
 ホスティング：Vercel（Next最適）、代替：Netlify
+```
 
 ## ディレクトリ構成
 
