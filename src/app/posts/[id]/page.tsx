@@ -70,6 +70,9 @@ const PostDetailPage = async ({ params }: PostDetailPageParams) => {
             { label: post.subject || "詳細" },
           ]}
         />
+        <Link href="/" style={{ fontSize: 14, marginBottom: 24 }}>
+          ← 一覧へ戻る
+        </Link>
         <h1 style={{ marginBottom: 8 }}>{post.subject || "タイトルなし"}</h1>
         {post.ymd && (
           <p style={{ color: "#666", fontSize: 12, marginTop: 0 }}>
