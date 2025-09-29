@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "../../page.module.css";
 import { fetchPostFromKuroco } from "../../lib/kuroco.server";
 import { sanitizeHtml } from "../../lib/sanitize";
+import Breadcrumbs from "../../components/Breadcrumbs"; // 追加: パンくずコンポーネント
 
 interface KurocoPost {
   topics_id?: string | number;
@@ -27,13 +28,14 @@ async function getPost(topics_id:number): Promise<KurocoPost> {
 }
 
 interface PostDetailPageParams {
-  params: {
-    id: number;
-  }
+  params: Promise<{
+    id: string;
+  }>;
 }
 
-const PostDetailPage: React.FC<PostDetailPageParams> = async ({ params }) => {
-  const post = await getPost(params.id);
+const PostDetailPage = async ({ params }: PostDetailPageParams) => {
+  const { id } = await params;
+  const post = await getPost(Number(id));
   if (!post) {
     notFound();
   }
@@ -58,10 +60,17 @@ const PostDetailPage: React.FC<PostDetailPageParams> = async ({ params }) => {
         className={styles.main}
         style={{ width: "100%", maxWidth: 860, alignItems: "flex-start" }}
       >
-        <Link href="/" style={{ fontSize: 14, marginBottom: 24 }}>
-          ← 一覧へ戻る
-        </Link>
-        <h1 style={{ marginBottom: 8 }}>{post.subject}</h1>
+        {/* パンくず: 上位階層 → 現在ページ
+            - "ホーム" と "記事一覧" は同じトップへ遷移（用途に応じて分岐可能）
+            - 最後の要素は現在ページ（リンクなし）
+        */}
+        <Breadcrumbs
+          items={[
+            { label: "ホーム", href: "/" },
+            { label: post.subject || "詳細" },
+          ]}
+        />
+        <h1 style={{ marginBottom: 8 }}>{post.subject || "タイトルなし"}</h1>
         {post.ymd && (
           <p style={{ color: "#666", fontSize: 12, marginTop: 0 }}>
             {post.ymd}
