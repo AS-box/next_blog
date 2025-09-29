@@ -1,0 +1,16 @@
+.link {
+  text-decoration: none;
+  width: 32.8%;
+  min-width: 280px;
+  display: block;
+  margin-bottom: 16px;
+}
+@media (max-width: 600px) {
+  .link {
+    width: 100%;
+  }
+  .link :global(.ant-card-head-title) {
+    white-space: normal !important;
+    word-break: break-word;
+  }
+}

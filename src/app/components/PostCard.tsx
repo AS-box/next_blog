@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import styles from "@/app/postCard.module.css";
 import { Card } from "antd";
 import type { KurocoPost } from "./PostList";
 
@@ -19,10 +20,11 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
   return (
     <Link
         href={`/posts/${post.topics_id}`}
+        className={styles.link}
         style={{
           textDecoration: "none",
-          width: "32.8%",
-          minWidth: 280
+          minWidth: 280,
+          display: "block"
         }}
       >
       <Card
